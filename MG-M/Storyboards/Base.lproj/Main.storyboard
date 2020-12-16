@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" red="0.35347327589999999" green="0.66752177479999997" blue="0.33420279619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="L4P-yk-xmJ"/>
-                                    <constraint firstAttribute="width" constant="220" id="V2q-Lv-wNQ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="V2q-Lv-wNQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,7 +44,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please configure the Number of Matrix and set the default optimization methods" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDm-i9-Ysm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please configure the Matrix size, the Number of Matrix and set the default optimization methods" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDm-i9-Ysm">
                                 <rect key="frame" x="20" y="139" width="388" height="41"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -116,6 +116,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rh7-Vr-HY4">
+                                <rect key="frame" x="204" y="453" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -131,9 +134,12 @@
                             <constraint firstItem="eDm-i9-Ysm" firstAttribute="top" secondItem="3MA-jP-5xi" secondAttribute="bottom" constant="20" id="htB-1C-asB"/>
                             <constraint firstItem="eDm-i9-Ysm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="nKL-Om-Px9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1QS-2A-W7c" secondAttribute="bottom" constant="30" id="o72-go-p8p"/>
+                            <constraint firstItem="rh7-Vr-HY4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sUI-m3-Vff"/>
+                            <constraint firstItem="rh7-Vr-HY4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ub5-c8-uKp"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="rh7-Vr-HY4" id="CPy-hu-0Uc"/>
                         <outlet property="matrixSizeTextLabel" destination="MZu-JQ-mTL" id="V8G-0z-Ydt"/>
                         <outlet property="numberOfMatrixTextLabel" destination="tod-TZ-c5O" id="XqS-6p-0g9"/>
                         <segue destination="YHf-Oh-Ph7" kind="presentation" identifier="calculation" modalPresentationStyle="fullScreen" id="8o1-Oc-bND"/>
@@ -141,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20.625" y="127.8169014084507"/>
+            <point key="canvasLocation" x="-146" y="69"/>
         </scene>
         <!--Results View Controller-->
         <scene sceneID="bhg-tD-KrD">
@@ -152,7 +158,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="B3y-Ej-FgA">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="B3y-Ej-FgA">
                                 <rect key="frame" x="0.0" y="28" width="428" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B3y-Ej-FgA" id="hce-83-vux">
@@ -170,7 +176,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwh-7b-nxp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="919" y="128"/>
+            <point key="canvasLocation" x="851" y="82"/>
         </scene>
     </scenes>
     <resources>

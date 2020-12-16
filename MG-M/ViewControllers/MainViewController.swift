@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var matrixSizeTextLabel: UITextField!
     @IBOutlet weak var numberOfMatrixTextLabel: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Private Properties
      var matrix: Matrix!
@@ -19,6 +20,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         matrix = Matrix()
+        matrixSizeTextLabel.delegate = self
+        numberOfMatrixTextLabel.delegate = self
         addDoneButtonTo(matrixSizeTextLabel)
         addDoneButtonTo(numberOfMatrixTextLabel)
         
@@ -27,6 +30,8 @@ class MainViewController: UIViewController {
     // MARK: - IBActions
     }
     @IBAction func startCalculationPressed() {
+        matrix.countTimeOfMultiplying()
+        
     }
 }
 
