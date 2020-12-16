@@ -20,7 +20,9 @@ class MainViewController: UIViewController {
         @IBOutlet weak var priorityThreadSwitch: UISwitch!
         @IBOutlet weak var parallelCalculationSwitch: UISwitch!
         
-        // MARK: - Private Properties
+    @IBOutlet weak var bluredView: UIView!
+    
+    // MARK: - Private Properties
         var matrix: Matrix?
         
         override func viewDidLoad() {
@@ -43,12 +45,36 @@ class MainViewController: UIViewController {
             
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
-            sender.isEnabled = false
-
-            let time = matrix?.countTimeOfMultiplying()
-            DataManager.shared.saveData(time, key: Keys.calculationResultKey)
             
+            bluredView.alpha = 0.2
             
+            DispatchQueue.global(qos: .background).async {
+                self.matrix?.generateMatrixes()
+                
+                let time = self.matrix?.countTimeOfMultiplying()
+                
+                DataManager.shared.saveData(time, key: Keys.calculationResultKey)
+                
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "calculation", sender: time)
+                }
+            }
+        }
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            if segue.identifier == "calculation" {
+                
+                let destinationVC = segue.destination as! ResultsViewController
+                
+                destinationVC.calculationTime = sender as! Double
+                destinationVC.backgroungThreadSwitch = self.backgroungThreadSwitch.isOn
+                destinationVC.priorityThreadSwitch = self.priorityThreadSwitch.isOn
+                destinationVC.parallelCalculationSwitch = self.parallelCalculationSwitch.isOn
+                
+                destinationVC.delegate = self
+                
+            }
         }
         
         @IBAction func switcherChanged(_ sender: UISwitch) {
@@ -77,6 +103,16 @@ class MainViewController: UIViewController {
             matrix?.setNumberOfMatrixe(Int(numberOfMatrixTextField.text ?? ""))
         }
         
+    }
+
+    extension MainViewController: RefreshViewProtocol{
+        func refreshUI() {
+            
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+            
+            bluredView.alpha = 0
+        }
     }
 
 

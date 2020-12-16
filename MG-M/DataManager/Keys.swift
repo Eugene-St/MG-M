@@ -15,4 +15,6 @@ struct Keys{
     static let backgroundThreadSwitcherKey = "backgroundThreadSwitcherKey"
     static let priorityThreadSwitcherKey = "priorityThreadSwitcherKey"
     static let parallelCalculationSwitcherKey = "parallelCalculationSwitcherKey"
+    
+    static let resultArrayKey = "resultArrayKey"
 }

@@ -11,6 +11,7 @@ struct Matrix {
     
     private var matrixSize = 5
     private var numberOfMatrix = 3
+    private var matrixes: [[[Int]]] = []
 
     mutating func setMatrixSize(_ value: Int?){
         if let safeData = value{
@@ -31,13 +32,19 @@ struct Matrix {
     
         let end = DispatchTime.now()
         
-        return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)
+        return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/pow(10, 6)
     }
     
-    private func generateZeroMatrix(_ size: Int)->[[Int64]]{
-        var matrix: [[Int64]] = []
+    mutating func generateMatrixes() {
+        for _ in 0..<numberOfMatrix {
+            matrixes.append(generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100))
+        }
+    }
+    
+    private func generateZeroMatrix(_ size: Int)->[[Int]]{
+        var matrix: [[Int]] = []
         for _ in 0..<size{
-            var row: [Int64] = []
+            var row: [Int] = []
             
             for _ in 0..<size{
                 row.append(0)
@@ -48,13 +55,13 @@ struct Matrix {
         return matrix
     }
     
-    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int)->[[Int64]]{
-        var matrix: [[Int64]] = []
+    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int)->[[Int]]{
+        var matrix: [[Int]] = []
         for _ in 0..<size{
-            var row: [Int64] = []
+            var row: [Int] = []
             
             for _ in 0..<size{
-                row.append(Int64(Int.random(in: minElement...maxElement)))
+                row.append(Int(Int.random(in: minElement...maxElement)))
             }
             
             matrix.append(row)
@@ -62,9 +69,9 @@ struct Matrix {
         return matrix
     }
     
-    private func multiplyMatrix(matrixA: [[Int64]], matrixB: [[Int64]])->[[Int64]]{
+    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]])->[[Int]]{
         let size = matrixA.count
-        var resultMatrix: [[Int64]] = generateZeroMatrix(size)
+        var resultMatrix: [[Int]] = generateZeroMatrix(size)
         
         for i in 0 ..< size {
             for j in 0 ..< size {
@@ -75,18 +82,12 @@ struct Matrix {
             }
         }
         
-        print(resultMatrix)
-        
         return resultMatrix
     }
     
-    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int)->[[Int64]]{
-        var matrix = generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100)
-        
-        for _ in 0..<matrixAmount{
-            matrix = multiplyMatrix(matrixA: matrix, matrixB: generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100))
+    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int){
+        for i in 0..<matrixes.count-1{
+            multiplyMatrix(matrixA: matrixes[i], matrixB: matrixes[i+1])
         }
-        
-        return matrix
     }
 }

@@ -18,6 +18,7 @@
 		589C68E7258A43780083E28D /* Extension + MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C68E6258A43780083E28D /* Extension + MainViewController.swift */; };
 		58E46772258A6272000B715A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E46771258A6272000B715A /* DataManager.swift */; };
 		58E46776258A8034000B715A /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E46775258A8034000B715A /* Keys.swift */; };
+		58E4677E258ABF8F000B715A /* RefreshViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4677D258ABF8F000B715A /* RefreshViewProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		589C68E6258A43780083E28D /* Extension + MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + MainViewController.swift"; sourceTree = "<group>"; };
 		58E46771258A6272000B715A /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		58E46775258A8034000B715A /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		58E4677D258ABF8F000B715A /* RefreshViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshViewProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				589AF0C4258A15E900A8059F /* Matrix.swift */,
+				58E4677D258ABF8F000B715A /* RefreshViewProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				589AF0AC258A0F9D00A8059F /* MainViewController.swift in Sources */,
 				58E46772258A6272000B715A /* DataManager.swift in Sources */,
 				589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */,
+				58E4677E258ABF8F000B715A /* RefreshViewProtocol.swift in Sources */,
 				589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */,
 				589AF0AA258A0F9D00A8059F /* SceneDelegate.swift in Sources */,
 			);
