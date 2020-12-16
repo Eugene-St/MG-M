@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0A7258A0F9D00A8059F /* AppDelegate.swift */; };
 		589AF0AA258A0F9D00A8059F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0A9258A0F9D00A8059F /* SceneDelegate.swift */; };
-		589AF0AC258A0F9D00A8059F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0AB258A0F9D00A8059F /* ViewController.swift */; };
+		589AF0AC258A0F9D00A8059F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0AB258A0F9D00A8059F /* MainViewController.swift */; };
 		589AF0AF258A0F9D00A8059F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 589AF0AD258A0F9D00A8059F /* Main.storyboard */; };
 		589AF0B1258A0FA500A8059F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589AF0B0258A0FA500A8059F /* Assets.xcassets */; };
 		589AF0B4258A0FA500A8059F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 589AF0B2258A0FA500A8059F /* LaunchScreen.storyboard */; };
+		589AF0C5258A15E900A8059F /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0C4258A15E900A8059F /* Matrix.swift */; };
+		589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0C8258A1E5800A8059F /* ResultsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		589AF0A4258A0F9D00A8059F /* MG-M.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MG-M.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		589AF0A7258A0F9D00A8059F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		589AF0A9258A0F9D00A8059F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		589AF0AB258A0F9D00A8059F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		589AF0AB258A0F9D00A8059F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		589AF0AE258A0F9D00A8059F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		589AF0B0258A0FA500A8059F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		589AF0B3258A0FA500A8059F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		589AF0B5258A0FA500A8059F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		589AF0C4258A15E900A8059F /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		589AF0C8258A1E5800A8059F /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,57 @@
 		589AF0A6258A0F9D00A8059F /* MG-M */ = {
 			isa = PBXGroup;
 			children = (
-				589AF0A7258A0F9D00A8059F /* AppDelegate.swift */,
-				589AF0A9258A0F9D00A8059F /* SceneDelegate.swift */,
-				589AF0AB258A0F9D00A8059F /* ViewController.swift */,
-				589AF0AD258A0F9D00A8059F /* Main.storyboard */,
-				589AF0B0258A0FA500A8059F /* Assets.xcassets */,
-				589AF0B2258A0FA500A8059F /* LaunchScreen.storyboard */,
-				589AF0B5258A0FA500A8059F /* Info.plist */,
+				589AF0C2258A0FE600A8059F /* Models */,
+				589AF0BD258A0FBD00A8059F /* SupportingFiles */,
+				589AF0BE258A0FC600A8059F /* ViewControllers */,
+				589AF0C0258A0FD100A8059F /* Storyboards */,
+				589AF0C1258A0FDE00A8059F /* Source */,
 			);
 			path = "MG-M";
+			sourceTree = "<group>";
+		};
+		589AF0BD258A0FBD00A8059F /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				589AF0A7258A0F9D00A8059F /* AppDelegate.swift */,
+				589AF0A9258A0F9D00A8059F /* SceneDelegate.swift */,
+				589AF0B5258A0FA500A8059F /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		589AF0BE258A0FC600A8059F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				589AF0AB258A0F9D00A8059F /* MainViewController.swift */,
+				589AF0C8258A1E5800A8059F /* ResultsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		589AF0C0258A0FD100A8059F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				589AF0AD258A0F9D00A8059F /* Main.storyboard */,
+				589AF0B2258A0FA500A8059F /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		589AF0C1258A0FDE00A8059F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				589AF0B0258A0FA500A8059F /* Assets.xcassets */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		589AF0C2258A0FE600A8059F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				589AF0C4258A15E900A8059F /* Matrix.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +183,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589AF0AC258A0F9D00A8059F /* ViewController.swift in Sources */,
+				589AF0C5258A15E900A8059F /* Matrix.swift in Sources */,
+				589AF0AC258A0F9D00A8059F /* MainViewController.swift in Sources */,
 				589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */,
+				589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */,
 				589AF0AA258A0F9D00A8059F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,11 +336,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B7NCZ24UXD;
-				INFOPLIST_FILE = "MG-M/Info.plist";
+				INFOPLIST_FILE = "MG-M/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.eugene.st.MG-M";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -307,11 +356,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B7NCZ24UXD;
-				INFOPLIST_FILE = "MG-M/Info.plist";
+				INFOPLIST_FILE = "MG-M/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.eugene.st.MG-M";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
