@@ -15,6 +15,7 @@
 		589AF0B4258A0FA500A8059F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 589AF0B2258A0FA500A8059F /* LaunchScreen.storyboard */; };
 		589AF0C5258A15E900A8059F /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0C4258A15E900A8059F /* Matrix.swift */; };
 		589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0C8258A1E5800A8059F /* ResultsViewController.swift */; };
+		589C68E7258A43780083E28D /* Extension + MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C68E6258A43780083E28D /* Extension + MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		589AF0B5258A0FA500A8059F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		589AF0C4258A15E900A8059F /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		589AF0C8258A1E5800A8059F /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		589C68E6258A43780083E28D /* Extension + MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + MainViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		589AF0A6258A0F9D00A8059F /* MG-M */ = {
 			isa = PBXGroup;
 			children = (
+				589C68E5258A435B0083E28D /* Extensions */,
 				589AF0C2258A0FE600A8059F /* Models */,
 				589AF0BD258A0FBD00A8059F /* SupportingFiles */,
 				589AF0BE258A0FC600A8059F /* ViewControllers */,
@@ -111,6 +114,14 @@
 				589AF0C4258A15E900A8059F /* Matrix.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		589C68E5258A435B0083E28D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				589C68E6258A43780083E28D /* Extension + MainViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				589AF0C5258A15E900A8059F /* Matrix.swift in Sources */,
+				589C68E7258A43780083E28D /* Extension + MainViewController.swift in Sources */,
 				589AF0AC258A0F9D00A8059F /* MainViewController.swift in Sources */,
 				589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */,
 				589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */,
