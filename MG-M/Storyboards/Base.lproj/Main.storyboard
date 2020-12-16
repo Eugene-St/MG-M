@@ -32,7 +32,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="startCalculationPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="8uS-ac-4Rc"/>
+                                    <action selector="startCalculationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8TV-S7-iHe"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Matrix Generator Multiplier" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MA-jP-5xi">
@@ -105,19 +105,29 @@
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FSl-G1-Lvs">
                                                 <rect key="frame" x="0.0" y="112" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6vq-j6-zyd"/>
+                                                </connections>
                                             </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-fV-MZc">
+                                            <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-fV-MZc">
                                                 <rect key="frame" x="0.0" y="168" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="DQt-e9-01b"/>
+                                                </connections>
                                             </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aK2-TH-040">
+                                            <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aK2-TH-040">
                                                 <rect key="frame" x="0.0" y="223.99999999999994" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="zQE-zs-ynQ"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rh7-Vr-HY4">
-                                <rect key="frame" x="204" y="453" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="rh7-Vr-HY4">
+                                <rect key="frame" x="195.66666666666666" y="444.66666666666669" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -139,9 +149,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="rh7-Vr-HY4" id="CPy-hu-0Uc"/>
-                        <outlet property="matrixSizeTextLabel" destination="MZu-JQ-mTL" id="V8G-0z-Ydt"/>
-                        <outlet property="numberOfMatrixTextLabel" destination="tod-TZ-c5O" id="XqS-6p-0g9"/>
+                        <outlet property="activityIndicator" destination="rh7-Vr-HY4" id="6Js-OH-4dX"/>
+                        <outlet property="backgroungThreadSwitcher" destination="FSl-G1-Lvs" id="N2X-Qn-OvD"/>
+                        <outlet property="matrixSizeTextLabel" destination="MZu-JQ-mTL" id="RF7-g4-wf7"/>
+                        <outlet property="numberOfMatrixTextLabel" destination="tod-TZ-c5O" id="Tgr-oX-D0Z"/>
+                        <outlet property="parallelCalculationSwitcher" destination="aK2-TH-040" id="4A4-80-F1o"/>
+                        <outlet property="priorityThreadSwitcher" destination="tGX-fV-MZc" id="Qbm-5M-ud0"/>
                         <segue destination="YHf-Oh-Ph7" kind="presentation" identifier="calculation" modalPresentationStyle="fullScreen" id="8o1-Oc-bND"/>
                     </connections>
                 </viewController>
@@ -152,6 +165,7 @@
         <!--Results View Controller-->
         <scene sceneID="bhg-tD-KrD">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iwh-7b-nxp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="YHf-Oh-Ph7" customClass="ResultsViewController" customModule="MG_M" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wWb-Qf-hDp">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
@@ -174,9 +188,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="kXR-UF-BXW"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iwh-7b-nxp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="851" y="82"/>
+            <point key="canvasLocation" x="850" y="69"/>
         </scene>
     </scenes>
     <resources>

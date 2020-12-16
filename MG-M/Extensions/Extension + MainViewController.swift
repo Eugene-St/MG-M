@@ -22,8 +22,12 @@ extension MainViewController: UITextFieldDelegate {
         if let value = Int(text) {
             
             switch textField.tag {
-            case 0: matrix.matrixSize = value; print("\(matrix.matrixSize)")
-            case 1: matrix.numberOfMatrix = value; print("\(matrix.numberOfMatrix)")
+            case 0:
+                matrix.setMatrixSize(value)
+                DataManager.shared.saveData(value, key: Keys.matrixSizeKey)
+            case 1:
+                matrix.setNumberOfMatrixe(value)
+                DataManager.shared.saveData(value, key: Keys.numberOfMatrixKey)
             default: break
             }
         }

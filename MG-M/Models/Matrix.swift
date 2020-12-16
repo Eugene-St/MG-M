@@ -8,30 +8,36 @@
 import Foundation
 
 struct Matrix {
-    var matrixSize: Int
-    var numberOfMatrix: Int
-    var calculationResult: Double?
     
-    init(matrixSize: Int = 5, numberOfMatrix: Int = 2) {
-        self.matrixSize = matrixSize
-        self.numberOfMatrix = numberOfMatrix
+    private var matrixSize = 5
+    private var numberOfMatrix = 3
+
+    mutating func setMatrixSize(_ value: Int?){
+        if let safeData = value{
+            self.matrixSize = safeData
+        }
     }
     
-    func countTimeOfMultiplying()-> Double {
+    mutating func setNumberOfMatrixe(_ value: Int?){
+        if let safeData = value{
+            self.numberOfMatrix = safeData
+        }
+    }
+    
+    func countTimeOfMultiplying() -> Double {
         let start = DispatchTime.now()
         
         multiplyManyMatrix(matrixSize: self.matrixSize, matrixAmount: self.numberOfMatrix)
-        
+    
         let end = DispatchTime.now()
         
         return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)
-        
     }
-
-    private func generateZeroMatrix(_ size: Int)->[[Int]]{
-        var matrix: [[Int]] = []
+    
+    private func generateZeroMatrix(_ size: Int)->[[Int64]]{
+        var matrix: [[Int64]] = []
         for _ in 0..<size{
-            var row: [Int] = []
+            var row: [Int64] = []
             
             for _ in 0..<size{
                 row.append(0)
@@ -42,37 +48,39 @@ struct Matrix {
         return matrix
     }
     
-    
-    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int)->[[Int]]{
-        var matrix: [[Int]] = []
+    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int)->[[Int64]]{
+        var matrix: [[Int64]] = []
         for _ in 0..<size{
-            var row: [Int] = []
+            var row: [Int64] = []
             
             for _ in 0..<size{
-                row.append(Int.random(in: minElement...maxElement))
+                row.append(Int64(Int.random(in: minElement...maxElement)))
             }
             
             matrix.append(row)
         }
         return matrix
     }
-        
-    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]])->[[Int]]{
+    
+    private func multiplyMatrix(matrixA: [[Int64]], matrixB: [[Int64]])->[[Int64]]{
         let size = matrixA.count
-        var resultMatrix: [[Int]] = generateZeroMatrix(size)
+        var resultMatrix: [[Int64]] = generateZeroMatrix(size)
         
         for i in 0 ..< size {
             for j in 0 ..< size {
                 for k in 0 ..< size {
-                    resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j]
+                        resultMatrix[i][j] +=  matrixA[i][k] * matrixB[k][j]
+                    
                 }
             }
         }
         
+        print(resultMatrix)
+        
         return resultMatrix
     }
     
-    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int)->[[Int]]{
+    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int)->[[Int64]]{
         var matrix = generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100)
         
         for _ in 0..<matrixAmount{
