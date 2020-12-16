@@ -66,12 +66,12 @@
 		589AF0A6258A0F9D00A8059F /* MG-M */ = {
 			isa = PBXGroup;
 			children = (
-				58E46770258A625A000B715A /* DataManager */,
-				589C68E5258A435B0083E28D /* Extensions */,
-				589AF0C2258A0FE600A8059F /* Models */,
-				589AF0BD258A0FBD00A8059F /* SupportingFiles */,
 				589AF0BE258A0FC600A8059F /* ViewControllers */,
+				589AF0C2258A0FE600A8059F /* Models */,
+				58E46770258A625A000B715A /* DataManager */,
 				589AF0C0258A0FD100A8059F /* Storyboards */,
+				589C68E5258A435B0083E28D /* Extensions */,
+				589AF0BD258A0FBD00A8059F /* SupportingFiles */,
 				589AF0C1258A0FDE00A8059F /* Source */,
 			);
 			path = "MG-M";

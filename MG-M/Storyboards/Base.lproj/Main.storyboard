@@ -150,11 +150,11 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="rh7-Vr-HY4" id="6Js-OH-4dX"/>
-                        <outlet property="backgroungThreadSwitcher" destination="FSl-G1-Lvs" id="N2X-Qn-OvD"/>
-                        <outlet property="matrixSizeTextLabel" destination="MZu-JQ-mTL" id="RF7-g4-wf7"/>
-                        <outlet property="numberOfMatrixTextLabel" destination="tod-TZ-c5O" id="Tgr-oX-D0Z"/>
-                        <outlet property="parallelCalculationSwitcher" destination="aK2-TH-040" id="4A4-80-F1o"/>
-                        <outlet property="priorityThreadSwitcher" destination="tGX-fV-MZc" id="Qbm-5M-ud0"/>
+                        <outlet property="backgroungThreadSwitch" destination="FSl-G1-Lvs" id="N2X-Qn-OvD"/>
+                        <outlet property="matrixSizeTextField" destination="MZu-JQ-mTL" id="RF7-g4-wf7"/>
+                        <outlet property="numberOfMatrixTextField" destination="tod-TZ-c5O" id="Tgr-oX-D0Z"/>
+                        <outlet property="parallelCalculationSwitch" destination="aK2-TH-040" id="4A4-80-F1o"/>
+                        <outlet property="priorityThreadSwitch" destination="tGX-fV-MZc" id="Qbm-5M-ud0"/>
                         <segue destination="YHf-Oh-Ph7" kind="presentation" identifier="calculation" modalPresentationStyle="fullScreen" id="8o1-Oc-bND"/>
                     </connections>
                 </viewController>

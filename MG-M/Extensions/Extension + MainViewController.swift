@@ -23,10 +23,10 @@ extension MainViewController: UITextFieldDelegate {
             
             switch textField.tag {
             case 0:
-                matrix.setMatrixSize(value)
+                matrix?.setMatrixSize(value)
                 DataManager.shared.saveData(value, key: Keys.matrixSizeKey)
             case 1:
-                matrix.setNumberOfMatrixe(value)
+                matrix?.setNumberOfMatrixe(value)
                 DataManager.shared.saveData(value, key: Keys.numberOfMatrixKey)
             default: break
             }

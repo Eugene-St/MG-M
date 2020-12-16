@@ -11,17 +11,17 @@ class MainViewController: UIViewController {
         
         // MARK: - IBOutlets
         //fields
-        @IBOutlet weak var matrixSizeTextLabel: UITextField!
-        @IBOutlet weak var numberOfMatrixTextLabel: UITextField!
+        @IBOutlet weak var matrixSizeTextField: UITextField!
+        @IBOutlet weak var numberOfMatrixTextField: UITextField!
         //indicator
         @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
         //switchers
-        @IBOutlet weak var backgroungThreadSwitcher: UISwitch!
-        @IBOutlet weak var priorityThreadSwitcher: UISwitch!
-        @IBOutlet weak var parallelCalculationSwitcher: UISwitch!
+        @IBOutlet weak var backgroungThreadSwitch: UISwitch!
+        @IBOutlet weak var priorityThreadSwitch: UISwitch!
+        @IBOutlet weak var parallelCalculationSwitch: UISwitch!
         
         // MARK: - Private Properties
-        var matrix: Matrix!
+        var matrix: Matrix?
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -29,13 +29,13 @@ class MainViewController: UIViewController {
             
             matrix = Matrix()
             
-            matrixSizeTextLabel.delegate = self
-            numberOfMatrixTextLabel.delegate = self
+            matrixSizeTextField.delegate = self
+            numberOfMatrixTextField.delegate = self
             
-            addDoneButtonTo(matrixSizeTextLabel)
-            addDoneButtonTo(numberOfMatrixTextLabel)
+            addDoneButtonTo(matrixSizeTextField)
+            addDoneButtonTo(numberOfMatrixTextField)
             
-            updateUI()
+            setupUI()
         }
         
         // MARK: - IBActions
@@ -45,10 +45,10 @@ class MainViewController: UIViewController {
             activityIndicator.startAnimating()
             sender.isEnabled = false
 
-            let time = matrix.countTimeOfMultiplying()
+            let time = matrix?.countTimeOfMultiplying()
             DataManager.shared.saveData(time, key: Keys.calculationResultKey)
             
-            print(time)
+            
         }
         
         @IBAction func switcherChanged(_ sender: UISwitch) {
@@ -65,16 +65,16 @@ class MainViewController: UIViewController {
         }
         
         //MARK: - UpdateUI
-        private func updateUI() {
-            matrixSizeTextLabel.text = String(DataManager.shared.fetchInt(key: Keys.matrixSizeKey))
-            numberOfMatrixTextLabel.text = String(DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey))
+        private func setupUI() {
+            matrixSizeTextField.text = String(DataManager.shared.fetchInt(key: Keys.matrixSizeKey))
+            numberOfMatrixTextField.text = String(DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey))
             
-            backgroungThreadSwitcher.isOn = DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitcherKey)
-            priorityThreadSwitcher.isOn = DataManager.shared.fetchBool(key: Keys.priorityThreadSwitcherKey)
-            parallelCalculationSwitcher.isOn = DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitcherKey)
+            backgroungThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitcherKey)
+            priorityThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.priorityThreadSwitcherKey)
+            parallelCalculationSwitch.isOn = DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitcherKey)
             
-            matrix.setMatrixSize(Int(matrixSizeTextLabel.text ?? ""))
-            matrix.setNumberOfMatrixe(Int(numberOfMatrixTextLabel.text ?? ""))
+            matrix?.setMatrixSize(Int(matrixSizeTextField.text ?? ""))
+            matrix?.setNumberOfMatrixe(Int(numberOfMatrixTextField.text ?? ""))
         }
         
     }
