@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct Keys{
+struct Keys {
+    
     static let matrixSizeKey = "matrixSizeKey"
     static let numberOfMatrixKey = "numberOfMatrixKey"
     static let calculationResultKey = "calculationResultKey"
     
-    static let backgroundThreadSwitcherKey = "backgroundThreadSwitcherKey"
-    static let priorityThreadSwitcherKey = "priorityThreadSwitcherKey"
-    static let parallelCalculationSwitcherKey = "parallelCalculationSwitcherKey"
+    static let backgroundThreadSwitchKey = "backgroundThreadSwitchKey"
+    static let priorityThreadSwitchKey = "priorityThreadSwitchKey"
+    static let parallelCalculationSwitchKey = "parallelCalculationSwitchKey"
     
     static let resultArrayKey = "resultArrayKey"
 }

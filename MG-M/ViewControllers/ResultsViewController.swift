@@ -10,6 +10,7 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     var calculationTime: Double?
+    var resultsCalculation: [String : Double?]?
     
     var backgroungThreadSwitch: Bool?
     var priorityThreadSwitch: Bool?
@@ -19,16 +20,18 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(calculationTime ?? 0)
+//        resultsCalculation = DataManager.shared.fetchDict(key: Keys.resultArrayKey)
+        print(resultsCalculation)
+        print("Count of key/value pairs \(resultsCalculation?.count ?? 0)")
     }
     
     @IBAction func backButtonPressed() {
         delegate?.refreshUI()
         dismiss(animated: true)
     }
-    
 }
+
+
 // MARK: - Table view data source
 extension ResultsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

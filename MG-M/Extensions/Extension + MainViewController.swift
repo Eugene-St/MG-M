@@ -17,7 +17,6 @@ extension MainViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("textFieldDidEndEditing")
         guard let text = textField.text else { return }
         if let value = Int(text) {
             
@@ -26,7 +25,7 @@ extension MainViewController: UITextFieldDelegate {
                 matrix?.setMatrixSize(value)
                 DataManager.shared.saveData(value, key: Keys.matrixSizeKey)
             case 1:
-                matrix?.setNumberOfMatrixe(value)
+                matrix?.setNumberOfMatrixes(value)
                 DataManager.shared.saveData(value, key: Keys.numberOfMatrixKey)
             default: break
             }

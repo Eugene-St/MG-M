@@ -13,14 +13,14 @@ struct Matrix {
     private var numberOfMatrix = 3
     private var matrixes: [[[Int]]] = []
 
-    mutating func setMatrixSize(_ value: Int?){
-        if let safeData = value{
+    mutating func setMatrixSize(_ value: Int?) {
+        if let safeData = value {
             self.matrixSize = safeData
         }
     }
     
-    mutating func setNumberOfMatrixe(_ value: Int?){
-        if let safeData = value{
+    mutating func setNumberOfMatrixes(_ value: Int?) {
+        if let safeData = value {
             self.numberOfMatrix = safeData
         }
     }
@@ -41,12 +41,12 @@ struct Matrix {
         }
     }
     
-    private func generateZeroMatrix(_ size: Int)->[[Int]]{
+    private func generateZeroMatrix(_ size: Int) ->[[Int]] {
         var matrix: [[Int]] = []
-        for _ in 0..<size{
+        for _ in 0..<size {
             var row: [Int] = []
             
-            for _ in 0..<size{
+            for _ in 0..<size {
                 row.append(0)
             }
             
@@ -55,12 +55,12 @@ struct Matrix {
         return matrix
     }
     
-    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int)->[[Int]]{
+    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int) ->[[Int]] {
         var matrix: [[Int]] = []
-        for _ in 0..<size{
+        for _ in 0..<size {
             var row: [Int] = []
             
-            for _ in 0..<size{
+            for _ in 0..<size {
                 row.append(Int(Int.random(in: minElement...maxElement)))
             }
             
@@ -69,7 +69,7 @@ struct Matrix {
         return matrix
     }
     
-    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]])->[[Int]]{
+    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]]) ->[[Int]] {
         let size = matrixA.count
         var resultMatrix: [[Int]] = generateZeroMatrix(size)
         
@@ -85,8 +85,8 @@ struct Matrix {
         return resultMatrix
     }
     
-    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int){
-        for i in 0..<matrixes.count-1{
+    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int) {
+        for i in 0..<matrixes.count - 1 {
             multiplyMatrix(matrixA: matrixes[i], matrixB: matrixes[i+1])
         }
     }
