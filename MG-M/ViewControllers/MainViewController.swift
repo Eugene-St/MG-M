@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     var matrix: Matrix?
-    private var resultsArray: [String : Double?] = [:]
+    private var resultsArray: [String : Double] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +95,7 @@ class MainViewController: UIViewController {
         if segue.identifier == "calculation" {
             
             let destinationVC = segue.destination as! ResultsViewController
-            
-            //            destinationVC.calculationTime = sender as? Double
-            destinationVC.resultsCalculation = sender as? [String : Double?]
-            destinationVC.backgroungThreadSwitch = self.backgroungThreadSwitch.isOn
-            destinationVC.priorityThreadSwitch = self.priorityThreadSwitch.isOn
-            destinationVC.parallelCalculationSwitch = self.parallelCalculationSwitch.isOn
+            destinationVC.resultsCalculation = sender as? [String : Double]
             destinationVC.delegate = self
         }
     }

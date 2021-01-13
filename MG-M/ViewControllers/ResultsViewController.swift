@@ -9,40 +9,33 @@ import UIKit
 
 class ResultsViewController: UIViewController {
     
+    // MARK: - Properties
     var calculationTime: Double?
-    var resultsCalculation: [String : Double?]?
     
-    var backgroungThreadSwitch: Bool?
-    var priorityThreadSwitch: Bool?
-    var parallelCalculationSwitch: Bool?
+    var resultsCalculation: [String : Double]?
     
     var delegate: RefreshViewProtocol?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        resultsCalculation = DataManager.shared.fetchDict(key: Keys.resultArrayKey)
-        print(resultsCalculation)
-        print("Count of key/value pairs \(resultsCalculation?.count ?? 0)")
-    }
-    
+    // MARK: - IBAction
     @IBAction func backButtonPressed() {
         delegate?.refreshUI()
         dismiss(animated: true)
     }
 }
 
-
 // MARK: - Table view data source
 extension ResultsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return resultsCalculation?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-       let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-       
-        cell.textLabel?.text = "\(String(calculationTime ?? 0)) milliseconds"
+        
+        let sortedResults = (Array(resultsCalculation ?? ["0":0]).sorted{$0.1 < $1.1})
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = "\(sortedResults[indexPath.row].key) : \(sortedResults[indexPath.row].value) ms"
         
         return cell
     }
