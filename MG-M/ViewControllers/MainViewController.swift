@@ -65,7 +65,6 @@ class MainViewController: UIViewController {
         // Matrix calculation on main queue
         DispatchQueue.main.async(group: taskGroup) {
             if let time = self.matrix?.countTimeOfMultiplying() {
-                print("We have a value \(time)")
                 self.resultsArray["No optimization"] = time
             }
         }
@@ -104,7 +103,6 @@ class MainViewController: UIViewController {
     private func backgroundCalculation(for group: DispatchGroup) {
         DispatchQueue.global(qos: .background).async(group: group) {
             if let backgroundThreadTime = self.matrix?.countTimeOfMultiplying() {
-                print("We have a back value \(backgroundThreadTime)")
                 self.resultsArray["Background Thread"] = backgroundThreadTime
             }
         }
@@ -113,7 +111,6 @@ class MainViewController: UIViewController {
     private func priorityCalculation(for group: DispatchGroup) {
         DispatchQueue.global(qos: .userInteractive).async(group: group) {
             if let priorityThreadTime = self.matrix?.countTimeOfMultiplying() {
-                print("We have a priority value \(priorityThreadTime)")
                 self.resultsArray["Priority Thread"] = priorityThreadTime
             }
         }
