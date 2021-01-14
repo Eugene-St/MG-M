@@ -10,10 +10,8 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     // MARK: - Properties
-    var calculationTime: Double?
-    
+//    var calculationTime: Double?
     var resultsCalculation: [String : Double]?
-    
     var delegate: RefreshViewProtocol?
     
     // MARK: - IBAction
@@ -31,7 +29,7 @@ extension ResultsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let sortedResults = (Array(resultsCalculation ?? ["0":0]).sorted{$0.1 < $1.1})
+        let sortedResults = (Array(resultsCalculation ?? ["0": 0]).sorted { $0.1 < $1.1 })
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         

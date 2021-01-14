@@ -12,7 +12,7 @@ struct Matrix {
     private var matrixSize = 5
     private var numberOfMatrix = 3
     private var matrixes: [[[Int]]] = []
-
+    
     mutating func setMatrixSize(_ value: Int?) {
         if let safeData = value {
             self.matrixSize = safeData
@@ -29,7 +29,7 @@ struct Matrix {
         let start = DispatchTime.now()
         
         multiplyManyMatrix(matrixSize: self.matrixSize, matrixAmount: self.numberOfMatrix)
-    
+        
         let end = DispatchTime.now()
         
         return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/pow(10, 6)
@@ -69,25 +69,34 @@ struct Matrix {
         return matrix
     }
     
-    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]]) ->[[Int]] {
+    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]]) {
+        
+//        let multiplyGroup = DispatchGroup()
+        
         let size = matrixA.count
         var resultMatrix: [[Int]] = generateZeroMatrix(size)
         
         for i in 0 ..< size {
             for j in 0 ..< size {
-                for k in 0 ..< size {
+//                DispatchQueue.global(qos: .userInitiated).async(group: multiplyGroup) {
+                    for k in 0 ..< size {
                         resultMatrix[i][j] +=  matrixA[i][k] * matrixB[k][j]
-                    
-                }
+                    }
+//                }
             }
         }
-        
-        return resultMatrix
+//        multiplyGroup.notify(queue: DispatchQueue.main) {
+//        print(resultMatrix)
+//        }
     }
     
     private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int) {
         for i in 0..<matrixes.count - 1 {
             multiplyMatrix(matrixA: matrixes[i], matrixB: matrixes[i+1])
         }
+    }
+    
+    func optimizationCalculation(result: inout [String : Double], resultValue: String) {
+        result[resultValue] = countTimeOfMultiplying()
     }
 }

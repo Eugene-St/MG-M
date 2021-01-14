@@ -53,20 +53,39 @@ class MainViewController: UIViewController {
         bluredView.alpha = 0.2
         
         // Checking if Background optimization is enabled
+//        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
+//            backgroundCalculation(for: taskGroup)
+//        }
+        
         if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
-            backgroundCalculation(for: taskGroup)
+            DispatchQueue.global(qos: .background).async(group: taskGroup) {
+            self.matrix?.optimizationCalculation(result: &self.resultsArray,
+                                                 resultValue: "Background Calculation")
+            }
         }
         
         // Checking if Priority optimization is enabled
+//        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
+//            priorityCalculation(for: taskGroup)
+//        }
+        
         if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
-            priorityCalculation(for: taskGroup)
+            DispatchQueue.global(qos: .userInteractive).async(group: taskGroup) {
+                self.matrix?.optimizationCalculation(result: &self.resultsArray,
+                                                     resultValue: "Priority Calculation")
+            }
         }
         
         // Matrix calculation on main queue
+//        DispatchQueue.main.async(group: taskGroup) {
+//            if let time = self.matrix?.countTimeOfMultiplying() {
+//                self.resultsArray["No optimization"] = time
+//            }
+//        }
+        
         DispatchQueue.main.async(group: taskGroup) {
-            if let time = self.matrix?.countTimeOfMultiplying() {
-                self.resultsArray["No optimization"] = time
-            }
+            self.matrix?.optimizationCalculation(result: &self.resultsArray,
+                                                 resultValue: "No optimization")
         }
         
         // Navigation to Results Controller
@@ -78,9 +97,9 @@ class MainViewController: UIViewController {
     @IBAction func switcherChanged(_ sender: UISwitch) {
         switch sender.tag {
         case 0:
-            DataManager.shared.saveData(sender.isOn, key: Keys.backgroundThreadSwitchKey)
+            DataManager.shared.saveData(sender.isOn, key: Keys.backgroundThreadSwitchKey);
         case 1:
-            DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey)
+            DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey);
         case 2:
             DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
         default:
@@ -92,7 +111,6 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "calculation" {
-            
             let destinationVC = segue.destination as! ResultsViewController
             destinationVC.resultsCalculation = sender as? [String : Double]
             destinationVC.delegate = self
@@ -100,21 +118,21 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func backgroundCalculation(for group: DispatchGroup) {
-        DispatchQueue.global(qos: .background).async(group: group) {
-            if let backgroundThreadTime = self.matrix?.countTimeOfMultiplying() {
-                self.resultsArray["Background Thread"] = backgroundThreadTime
-            }
-        }
-    }
-    
-    private func priorityCalculation(for group: DispatchGroup) {
-        DispatchQueue.global(qos: .userInteractive).async(group: group) {
-            if let priorityThreadTime = self.matrix?.countTimeOfMultiplying() {
-                self.resultsArray["Priority Thread"] = priorityThreadTime
-            }
-        }
-    }
+//    private func backgroundCalculation(for group: DispatchGroup) {
+//        DispatchQueue.global(qos: .background).async(group: group) {
+//            if let backgroundThreadTime = self.matrix?.countTimeOfMultiplying() {
+//                self.resultsArray["Background Thread"] = backgroundThreadTime
+//            }
+//        }
+//    }
+//
+//    private func priorityCalculation(for group: DispatchGroup) {
+//        DispatchQueue.global(qos: .userInteractive).async(group: group) {
+//            if let priorityThreadTime = self.matrix?.countTimeOfMultiplying() {
+//                self.resultsArray["Priority Thread"] = priorityThreadTime
+//            }
+//        }
+//    }
     
     //MARK: - UpdateUI
     private func setupUI() {
