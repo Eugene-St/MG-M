@@ -7,35 +7,61 @@
 
 import Foundation
 
-struct Matrix {
+class Matrix {
     
     private var matrixSize = 5
     private var numberOfMatrix = 3
     private var matrixes: [[[Int]]] = []
     
-    mutating func setMatrixSize(_ value: Int?) {
+    weak var viewController: MainViewController?
+    
+    init(viewController: MainViewController) {
+        self.viewController = viewController
+    }
+    
+    private var startCalculationTime = Date().timeIntervalSinceNow
+    
+    func setMatrixSize(_ value: Int?) {
         if let safeData = value {
             self.matrixSize = safeData
         }
     }
     
-    mutating func setNumberOfMatrixes(_ value: Int?) {
+    func setNumberOfMatrixes(_ value: Int?) {
         if let safeData = value {
             self.numberOfMatrix = safeData
         }
     }
     
-    func countTimeOfMultiplying() -> Double {
-        let start = DispatchTime.now()
+    // MARK: - Start Calculation
+    func countTimeOfMultiplying() {
         
-        multiplyManyMatrix(matrixSize: self.matrixSize, matrixAmount: self.numberOfMatrix)
+        startCalculationTime = Date().timeIntervalSinceReferenceDate
+        multiplyManyMatrix(parallelEnabled: DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey ))
         
-        let end = DispatchTime.now()
-        
-        return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/pow(10, 6)
+        //        var start = DispatchTime.now()
+        //
+        //        multiplyManyMatrix()
+        //        let end = DispatchTime.now()
+        //
+        //        return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/pow(10, 6)
     }
     
-    mutating func generateMatrixes() {
+    // MARK: - End Calculation
+    func endCalculation() {
+        
+        let endCalculationTime = Date().timeIntervalSinceReferenceDate
+        
+        let result = endCalculationTime - startCalculationTime
+        
+        guard let viewController = self.viewController else { return }
+        
+        viewController.endCalculation(time: result)
+        print(result)
+    }
+    
+    func generateMatrixes() {
+        matrixes = []
         for _ in 0..<numberOfMatrix {
             matrixes.append(generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100))
         }
@@ -71,32 +97,38 @@ struct Matrix {
     
     private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]]) {
         
-//        let multiplyGroup = DispatchGroup()
-        
         let size = matrixA.count
         var resultMatrix: [[Int]] = generateZeroMatrix(size)
         
         for i in 0 ..< size {
             for j in 0 ..< size {
-//                DispatchQueue.global(qos: .userInitiated).async(group: multiplyGroup) {
-                    for k in 0 ..< size {
-                        resultMatrix[i][j] +=  matrixA[i][k] * matrixB[k][j]
-                    }
-//                }
+                for k in 0 ..< size {
+                    resultMatrix[i][j] +=  matrixA[i][k] * matrixB[k][j]
+                }
             }
         }
-//        multiplyGroup.notify(queue: DispatchQueue.main) {
-//        print(resultMatrix)
-//        }
     }
     
-    private func multiplyManyMatrix(matrixSize: Int, matrixAmount: Int) {
-        for i in 0..<matrixes.count - 1 {
-            multiplyMatrix(matrixA: matrixes[i], matrixB: matrixes[i+1])
+    private func multiplyManyMatrix(parallelEnabled: Bool) {
+        
+        if parallelEnabled {
+            for i in 0..<matrixes.count - 1 {
+                
+                Semafor.shared.addOne()
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.multiplyMatrix(matrixA: self.matrixes[i], matrixB: self.matrixes[i+1])
+                    Semafor.shared.minusOne()
+                }
+            }
+        } else {
+            for i in 0..<matrixes.count - 1 {
+                self.multiplyMatrix(matrixA: self.matrixes[i], matrixB: self.matrixes[i+1])
+            }
         }
     }
     
-    func optimizationCalculation(result: inout [String : Double], resultValue: String) {
-        result[resultValue] = countTimeOfMultiplying()
-    }
+    //    func optimizationCalculation(result: inout [String : Double], resultValue: String) {
+    //        result[resultValue] = countTimeOfMultiplying()
+    //    }
 }

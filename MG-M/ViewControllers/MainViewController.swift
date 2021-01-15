@@ -30,7 +30,9 @@ class MainViewController: UIViewController {
         
         activityIndicator.isHidden = true
         
-        matrix = Matrix()
+//        matrix = Matrix()
+        matrix = Matrix(viewController: self)
+        Semafor.shared.matrixClass = matrix
         
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
@@ -39,6 +41,10 @@ class MainViewController: UIViewController {
         addDoneButtonTo(numberOfMatrixTextField)
         
         setupUI()
+    }
+    
+    func endCalculation(time: Double) {
+//        print(time)
     }
     
     // MARK: - IBActions
@@ -52,27 +58,16 @@ class MainViewController: UIViewController {
         activityIndicator.startAnimating()
         bluredView.alpha = 0.2
         
-        // Checking if Background optimization is enabled
-//        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
-//            backgroundCalculation(for: taskGroup)
-//        }
         
         if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
             DispatchQueue.global(qos: .background).async(group: taskGroup) {
-            self.matrix?.optimizationCalculation(result: &self.resultsArray,
-                                                 resultValue: "Background Calculation")
+                self.matrix?.countTimeOfMultiplying()
             }
         }
         
-        // Checking if Priority optimization is enabled
-//        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
-//            priorityCalculation(for: taskGroup)
-//        }
-        
         if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
             DispatchQueue.global(qos: .userInteractive).async(group: taskGroup) {
-                self.matrix?.optimizationCalculation(result: &self.resultsArray,
-                                                     resultValue: "Priority Calculation")
+                self.matrix?.countTimeOfMultiplying()
             }
         }
         
@@ -84,8 +79,7 @@ class MainViewController: UIViewController {
 //        }
         
         DispatchQueue.main.async(group: taskGroup) {
-            self.matrix?.optimizationCalculation(result: &self.resultsArray,
-                                                 resultValue: "No optimization")
+            self.matrix?.countTimeOfMultiplying()
         }
         
         // Navigation to Results Controller
