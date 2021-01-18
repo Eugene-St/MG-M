@@ -9,30 +9,36 @@ import Foundation
 
 struct CalculationSettings {
     
-    let numberOfMatrixes: Int = 3 {
+    var numberOfMatrixes: Int {
         willSet {
             return DataManager.shared.saveData(newValue, key: Keys.numberOfMatrixKey)
         }
     }
     
-    let matrixSize: Int = 5 {
+    var matrixSize: Int {
         willSet {
             return DataManager.shared.saveData(newValue, key: Keys.matrixSizeKey)
         }
     }
     
-    var optimizations: [Optimizations] = []
+    var optimizations: [Optimizations] = [.noOptimization]
     
     init() {
-        self.numberOfMatrixes = DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey)
-        self.matrixSize = DataManager.shared.fetchInt(key: Keys.matrixSizeKey)
+        let numberOfMatrixes = DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey)
+        self.numberOfMatrixes = numberOfMatrixes == 0 ? 3 : numberOfMatrixes
+        DataManager.shared.saveData(self.numberOfMatrixes, key: Keys.numberOfMatrixKey)
+        
+        let matrixSize = DataManager.shared.fetchInt(key: Keys.matrixSizeKey)
+        self.matrixSize = matrixSize == 0 ? 5 : matrixSize
+        DataManager.shared.saveData(self.matrixSize, key: Keys.matrixSizeKey)
     }
 }
 
-enum Optimizations {
-    case background
-    case priority
-    case parallel
+enum Optimizations: String {
+    case background = "Background"
+    case priority = "Priority"
+    case parallel = "Parallel"
+    case noOptimization = "Default"
 }
 
 
