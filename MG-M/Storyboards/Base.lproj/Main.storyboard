@@ -106,19 +106,19 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FSl-G1-Lvs">
                                                 <rect key="frame" x="0.0" y="112" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6vq-j6-zyd"/>
+                                                    <action selector="backgroundSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="W7j-Qv-Khp"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-fV-MZc">
                                                 <rect key="frame" x="0.0" y="168" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="DQt-e9-01b"/>
+                                                    <action selector="prioritySwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="g49-Mj-SX4"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aK2-TH-040">
                                                 <rect key="frame" x="0.0" y="223.99999999999994" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="switcherChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="zQE-zs-ynQ"/>
+                                                    <action selector="parallelSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6E0-2J-ySH"/>
                                                 </connections>
                                             </switch>
                                         </subviews>

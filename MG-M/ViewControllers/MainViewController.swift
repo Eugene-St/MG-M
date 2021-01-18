@@ -23,16 +23,18 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     var matrix: Matrix?
-    private var resultsArray: [String : Double] = [:]
+    var calculationSettings: CalculationSettings?
+    var calculator: Calculator?
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityIndicator.isHidden = true
         
 //        matrix = Matrix()
-        matrix = Matrix(viewController: self)
-        Semafor.shared.matrixClass = matrix
+//        matrix = Matrix(viewController: self)
+//        Semafor.shared.matrixClass = matrix
         
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
@@ -49,6 +51,8 @@ class MainViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func startCalculationPressed(_ sender: UIButton) {
+        
+//        calculator.
         
         let taskGroup = DispatchGroup()
         
@@ -88,17 +92,16 @@ class MainViewController: UIViewController {
         }
     }
     
-    @IBAction func switcherChanged(_ sender: UISwitch) {
-        switch sender.tag {
-        case 0:
-            DataManager.shared.saveData(sender.isOn, key: Keys.backgroundThreadSwitchKey);
-        case 1:
-            DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey);
-        case 2:
-            DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
-        default:
-            return
-        }
+    @IBAction func backgroundSwitchChanged(_ sender: UISwitch) {
+        DataManager.shared.saveData(sender.isOn, key: Keys.backgroundThreadSwitchKey)
+    }
+    
+    @IBAction func prioritySwitchChanged(_ sender: UISwitch) {
+                    DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey)
+    }
+    
+    @IBAction func parallelSwitchChanged(_ sender: UISwitch) {
+                    DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
     }
     
     // MARK: - Navigation
@@ -133,13 +136,18 @@ class MainViewController: UIViewController {
         
         matrixSizeTextField.text = String(DataManager.shared.fetchInt(key: Keys.matrixSizeKey))
         numberOfMatrixTextField.text = String(DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey))
+//        matrixSizeTextField.text = calculationSettings?.matrixSize
+//        numberOfMatrixTextField.text = calculationSettings?.numberOfMatrixes
         
         backgroungThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey)
         priorityThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey)
         parallelCalculationSwitch.isOn = DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey)
         
-        matrix?.setMatrixSize(Int(matrixSizeTextField.text ?? ""))
-        matrix?.setNumberOfMatrixes(Int(numberOfMatrixTextField.text ?? ""))
+//        matrix?.setMatrixSize(Int(matrixSizeTextField.text ?? ""))
+//        calculationSettings?.matrixSize = Int(matrixSizeTextField.text ?? "") ?? 5
+//        matrix?.setNumberOfMatrixes(Int(numberOfMatrixTextField.text ?? ""))
+//        calculationSettings?.numberOfMatrixes = Int(numberOfMatrixTextField.text ?? "") ?? 3
+        
     }
 }
 
@@ -151,7 +159,7 @@ extension MainViewController: RefreshViewProtocol {
         activityIndicator.stopAnimating()
         
         bluredView.alpha = 0
-        resultsArray = [:]
+//        resultsArray = [:]
     }
 }
 

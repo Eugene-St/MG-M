@@ -1,37 +1,19 @@
 //
-//  Matrix.swift
+//  Calculator.swift
 //  MG-M
 //
-//  Created by Eugene St on 16.12.2020.
+//  Created by Eugene St on 18.01.2021.
 //
 
 import Foundation
 
-class Matrix {
+class Calculator {
     
-    private var matrixSize = 5
-    private var numberOfMatrix = 3
+    var calculationSettings = CalculationSettings()
+    
     private var matrixes: [[[Int]]] = []
-    
-    weak var viewController: MainViewController?
-    
-    init(viewController: MainViewController) {
-        self.viewController = viewController
-    }
-    
+    private var resultsArray: [String : Double] = [:]
     private var startCalculationTime = Date().timeIntervalSinceNow
-    
-    func setMatrixSize(_ value: Int?) {
-        if let safeData = value {
-            self.matrixSize = safeData
-        }
-    }
-    
-    func setNumberOfMatrixes(_ value: Int?) {
-        if let safeData = value {
-            self.numberOfMatrix = safeData
-        }
-    }
     
     // MARK: - Start Calculation
     func countTimeOfMultiplying() {
@@ -62,7 +44,7 @@ class Matrix {
     
     func generateMatrixes() {
         matrixes = []
-        for _ in 0..<numberOfMatrix {
+        for _ in 0..<calculationSettings?.numberOfMatrixes {
             matrixes.append(generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100))
         }
     }
@@ -109,40 +91,30 @@ class Matrix {
         }
     }
     
-    private func multiplyManyMatrix(parallelEnabled: Bool) {
-
-        if parallelEnabled {
-            for i in 0..<matrixes.count - 1 {
-
-                Semafor.shared.addOne()
-
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.multiplyMatrix(matrixA: self.matrixes[i], matrixB: self.matrixes[i+1])
-                    Semafor.shared.minusOne()
-                }
-            }
-        } else {
-            for i in 0..<matrixes.count - 1 {
-                self.multiplyMatrix(matrixA: self.matrixes[i], matrixB: self.matrixes[i+1])
-            }
-        }
-    }
     
-//    func startCalculation() {
-//        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
-//            DispatchQueue.global(qos: .background).async(group: taskGroup) {
-//                self.matrix?.countTimeOfMultiplying()
-//            }
-//        }
-//
-//        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
-//            DispatchQueue.global(qos: .userInteractive).async(group: taskGroup) {
-//                self.matrix?.countTimeOfMultiplying()
-//            }
-//        }
-//
-//        DispatchQueue.main.async(group: taskGroup) {
-//            self.matrix?.countTimeOfMultiplying()
-//        }
-//    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

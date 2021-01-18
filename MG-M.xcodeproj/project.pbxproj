@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5816E2BE25B57206002313F5 /* CalculationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5816E2BD25B57206002313F5 /* CalculationSettings.swift */; };
+		5816E2C125B58400002313F5 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5816E2C025B58400002313F5 /* Calculator.swift */; };
 		58270B9525B1699100A77263 /* Semafor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58270B9425B1699100A77263 /* Semafor.swift */; };
 		589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0A7258A0F9D00A8059F /* AppDelegate.swift */; };
 		589AF0AA258A0F9D00A8059F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589AF0A9258A0F9D00A8059F /* SceneDelegate.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5816E2BD25B57206002313F5 /* CalculationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationSettings.swift; sourceTree = "<group>"; };
+		5816E2C025B58400002313F5 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		58270B9425B1699100A77263 /* Semafor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semafor.swift; sourceTree = "<group>"; };
 		589AF0A4258A0F9D00A8059F /* MG-M.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MG-M.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		589AF0A7258A0F9D00A8059F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +78,6 @@
 				589AF0C2258A0FE600A8059F /* Models */,
 				58E46770258A625A000B715A /* DataManager */,
 				589AF0C0258A0FD100A8059F /* Storyboards */,
-				589C68E5258A435B0083E28D /* Extensions */,
 				589AF0BD258A0FBD00A8059F /* SupportingFiles */,
 				589AF0C1258A0FDE00A8059F /* Source */,
 			);
@@ -96,6 +99,7 @@
 			children = (
 				589AF0AB258A0F9D00A8059F /* MainViewController.swift */,
 				589AF0C8258A1E5800A8059F /* ResultsViewController.swift */,
+				589C68E6258A43780083E28D /* Extension + MainViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -123,16 +127,10 @@
 				589AF0C4258A15E900A8059F /* Matrix.swift */,
 				58E4677D258ABF8F000B715A /* RefreshViewProtocol.swift */,
 				58270B9425B1699100A77263 /* Semafor.swift */,
+				5816E2BD25B57206002313F5 /* CalculationSettings.swift */,
+				5816E2C025B58400002313F5 /* Calculator.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		589C68E5258A435B0083E28D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				589C68E6258A43780083E28D /* Extension + MainViewController.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		58E46770258A625A000B715A /* DataManager */ = {
@@ -219,8 +217,10 @@
 				589C68E7258A43780083E28D /* Extension + MainViewController.swift in Sources */,
 				589AF0AC258A0F9D00A8059F /* MainViewController.swift in Sources */,
 				58E46772258A6272000B715A /* DataManager.swift in Sources */,
+				5816E2C125B58400002313F5 /* Calculator.swift in Sources */,
 				58270B9525B1699100A77263 /* Semafor.swift in Sources */,
 				589AF0A8258A0F9D00A8059F /* AppDelegate.swift in Sources */,
+				5816E2BE25B57206002313F5 /* CalculationSettings.swift in Sources */,
 				58E4677E258ABF8F000B715A /* RefreshViewProtocol.swift in Sources */,
 				589AF0C9258A1E5800A8059F /* ResultsViewController.swift in Sources */,
 				589AF0AA258A0F9D00A8059F /* SceneDelegate.swift in Sources */,
