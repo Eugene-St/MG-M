@@ -9,24 +9,20 @@ import Foundation
 
 struct CalculationSettings {
     
-    var numberOfMatrixes: Int = 3 {
+    let numberOfMatrixes: Int = 3 {
         willSet {
             return DataManager.shared.saveData(newValue, key: Keys.numberOfMatrixKey)
         }
     }
     
-    var matrixSize: Int = 5 {
+    let matrixSize: Int = 5 {
         willSet {
             return DataManager.shared.saveData(newValue, key: Keys.matrixSizeKey)
         }
     }
     
-    var optimizations: [Optimizations] = [
-        .noOptimization,
-        .background,
-        .priority,
-        .parallel
-    ]
+    var optimizations: [Optimizations] = []
+    
     init() {
         self.numberOfMatrixes = DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey)
         self.matrixSize = DataManager.shared.fetchInt(key: Keys.matrixSizeKey)
@@ -34,7 +30,6 @@ struct CalculationSettings {
 }
 
 enum Optimizations {
-    case noOptimization
     case background
     case priority
     case parallel

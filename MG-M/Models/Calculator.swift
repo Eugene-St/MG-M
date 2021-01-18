@@ -9,89 +9,118 @@ import Foundation
 
 class Calculator {
     
-    var calculationSettings = CalculationSettings()
+    let settings: CalculationSettings
+    let endCalculation: (([String : Double]) -> Void)
     
-    private var matrixes: [[[Int]]] = []
-    private var resultsArray: [String : Double] = [:]
-    private var startCalculationTime = Date().timeIntervalSinceNow
+    var matrixes: [Matrix] = []
+    var resultsArray: [String : Double] = [:]
     
-    // MARK: - Start Calculation
-    func countTimeOfMultiplying() {
+    private var startCalculationTime = Date().timeIntervalSinceReferenceDate
+    
+    init(settings: CalculationSettings, endCalculation: @escaping (([String : Double]) -> Void)) {
+        self.settings = settings
+        self.endCalculation = endCalculation
         
-        startCalculationTime = Date().timeIntervalSinceReferenceDate
-        multiplyManyMatrix(parallelEnabled: DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey ))
-        
-        //        var start = DispatchTime.now()
-        //
-        //        multiplyManyMatrix()
-        //        let end = DispatchTime.now()
-        //
-        //        return Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/pow(10, 6)
+        generateMatrixes()
     }
     
-    // MARK: - End Calculation
-    func endCalculation() {
-        
-        let endCalculationTime = Date().timeIntervalSinceReferenceDate
-        
-        let result = endCalculationTime - startCalculationTime
-        
-        guard let viewController = self.viewController else { return }
-        
-        viewController.endCalculation(time: result)
-        print(result)
-    }
+    private var calculationIndex = 0
     
-    func generateMatrixes() {
-        matrixes = []
-        for _ in 0..<calculationSettings?.numberOfMatrixes {
-            matrixes.append(generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100))
-        }
-    }
-    
-    private func generateZeroMatrix(_ size: Int) ->[[Int]] {
-        var matrix: [[Int]] = []
-        for _ in 0..<size {
-            var row: [Int] = []
-            
-            for _ in 0..<size {
-                row.append(0)
-            }
-            
-            matrix.append(row)
-        }
-        return matrix
-    }
-    
-    private func generateRandomMatrix(size: Int, minElement: Int, maxElement: Int) ->[[Int]] {
-        var matrix: [[Int]] = []
-        for _ in 0..<size {
-            var row: [Int] = []
-            
-            for _ in 0..<size {
-                row.append(Int(Int.random(in: minElement...maxElement)))
-            }
-            
-            matrix.append(row)
-        }
-        return matrix
-    }
-    
-    private func multiplyMatrix(matrixA: [[Int]], matrixB: [[Int]]) {
-        
-        let size = matrixA.count
-        var resultMatrix: [[Int]] = generateZeroMatrix(size)
-        
-        for i in 0 ..< size {
-            for j in 0 ..< size {
-                for k in 0 ..< size {
-                    resultMatrix[i][j] +=  matrixA[i][k] * matrixB[k][j]
+    //MARK: - Semafor
+    private var semaforValue = 0
+    private var semafor: Int {
+        set {
+            semaforValue = newValue
+            if newValue == 0 {
+                let endCalculationTime = Date().timeIntervalSinceReferenceDate
+                
+                resultsArray[settings.optimizations[calculationIndex-1].rawValue] = endCalculationTime - startCalculationTime
+                
+                if calculationIndex < settings.optimizations.count {
+                    countTime(for: settings.optimizations[calculationIndex])
+                } else {
+                    DispatchQueue.main.async {
+                        self.endCalculation(self.resultsArray)
+                    }
                 }
+                calculationIndex += 1
+            }
+        }
+        get {
+            return semaforValue
+        }
+    }
+    
+    //MARK: Start calculation
+    func startCalculation() {
+        countTime(for: settings.optimizations[calculationIndex])
+        calculationIndex += 1
+    }
+    
+    //MARK: - Count time
+    private func countTime(for type: Optimizations){
+        startCalculationTime = Date().timeIntervalSinceReferenceDate
+        
+        switch type {
+        case .background:
+            backgroundMultiplication()
+        case .parallel:
+            parallelMultiplication()
+        case .priority:
+            priorityCalculation()
+        default:
+            defualtCalculation()
+        }
+    }
+    
+    //MARK: - Generate Matrixes
+    func generateMatrixes() {
+        for _ in 0..<settings.numberOfMatrixes {
+            matrixes.append(Matrix(matrixSize: settings.matrixSize, type: .random))
+        }
+    }
+    
+    //MARK: - Multiply matrixes methods
+    private func parallelMultiplication() {
+        for i in 0..<matrixes.count - 1 {
+            
+            semafor += 1
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.matrixes[i].multiply(with: self.matrixes[i+1])
+                self.semafor -= 1
             }
         }
     }
     
+    private func backgroundMultiplication() {
+        semafor += 1
+        DispatchQueue.global(qos: .background).async {
+            for i in 0..<self.matrixes.count - 1 {
+                self.matrixes[i].multiply(with: self.matrixes[i+1])
+            }
+            self.semafor -= 1
+        }
+    }
     
+    private func priorityCalculation() {
+        semafor += 1
+        DispatchQueue.global(qos: .userInitiated).async {
+            for i in 0..<self.matrixes.count - 1 {
+                self.matrixes[i].multiply(with: self.matrixes[i+1])
+            }
+            self.semafor -= 1
+        }
+    }
+    
+    private func defualtCalculation() {
+        semafor += 1
+        DispatchQueue.main.async {
+            for i in 0..<self.matrixes.count - 1 {
+                self.matrixes[i].multiply(with: self.matrixes[i+1])
+            }
+            self.semafor -= 1
+        }
+    }
 }
 
 

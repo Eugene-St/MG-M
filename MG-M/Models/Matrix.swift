@@ -108,7 +108,7 @@ class Matrix {
             }
         }
     }
-    
+     
     private func multiplyManyMatrix(parallelEnabled: Bool) {
 
         if parallelEnabled {
