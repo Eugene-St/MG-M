@@ -22,19 +22,13 @@ class MainViewController: UIViewController {
     @IBOutlet weak var bluredView: UIView!
     
     // MARK: - Properties
-    var matrix: Matrix?
-    var calculationSettings: CalculationSettings?
-    var calculator: Calculator?
+    var calculationSettings = CalculationSettings()
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityIndicator.isHidden = true
-        
-//        matrix = Matrix()
-//        matrix = Matrix(viewController: self)
-//        Semafor.shared.matrixClass = matrix
         
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
@@ -45,51 +39,25 @@ class MainViewController: UIViewController {
         setupUI()
     }
     
-    func endCalculation(time: Double) {
-//        print(time)
+    //MARK: - End calcultion
+    func endCalcultion(with result: [String:Double]){
+        performSegue(withIdentifier: "calculation", sender: result)
     }
     
     // MARK: - IBActions
     @IBAction func startCalculationPressed(_ sender: UIButton) {
+        updateCalculationSettings()
         
-//        calculator.
+        let calculator = Calculator(settings: calculationSettings) {
+            [weak self] resultArray in
+            self?.endCalcultion(with: resultArray)
+        }
         
-        let taskGroup = DispatchGroup()
-        
-        matrix?.generateMatrixes()
+        calculator.startCalculation()
         
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         bluredView.alpha = 0.2
-        
-        
-        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
-            DispatchQueue.global(qos: .background).async(group: taskGroup) {
-                self.matrix?.countTimeOfMultiplying()
-            }
-        }
-        
-        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
-            DispatchQueue.global(qos: .userInteractive).async(group: taskGroup) {
-                self.matrix?.countTimeOfMultiplying()
-            }
-        }
-        
-        // Matrix calculation on main queue
-//        DispatchQueue.main.async(group: taskGroup) {
-//            if let time = self.matrix?.countTimeOfMultiplying() {
-//                self.resultsArray["No optimization"] = time
-//            }
-//        }
-        
-        DispatchQueue.main.async(group: taskGroup) {
-            self.matrix?.countTimeOfMultiplying()
-        }
-        
-        // Navigation to Results Controller
-        taskGroup.notify(queue: DispatchQueue.main) {
-            self.performSegue(withIdentifier: "calculation", sender: self.resultsArray)
-        }
     }
     
     @IBAction func backgroundSwitchChanged(_ sender: UISwitch) {
@@ -97,11 +65,11 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func prioritySwitchChanged(_ sender: UISwitch) {
-                    DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey)
+        DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey)
     }
     
     @IBAction func parallelSwitchChanged(_ sender: UISwitch) {
-                    DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
+        DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
     }
     
     // MARK: - Navigation
@@ -114,52 +82,45 @@ class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - Private Methods
-//    private func backgroundCalculation(for group: DispatchGroup) {
-//        DispatchQueue.global(qos: .background).async(group: group) {
-//            if let backgroundThreadTime = self.matrix?.countTimeOfMultiplying() {
-//                self.resultsArray["Background Thread"] = backgroundThreadTime
-//            }
-//        }
-//    }
-//
-//    private func priorityCalculation(for group: DispatchGroup) {
-//        DispatchQueue.global(qos: .userInteractive).async(group: group) {
-//            if let priorityThreadTime = self.matrix?.countTimeOfMultiplying() {
-//                self.resultsArray["Priority Thread"] = priorityThreadTime
-//            }
-//        }
-//    }
     
     //MARK: - UpdateUI
     private func setupUI() {
         
         matrixSizeTextField.text = String(DataManager.shared.fetchInt(key: Keys.matrixSizeKey))
         numberOfMatrixTextField.text = String(DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey))
-//        matrixSizeTextField.text = calculationSettings?.matrixSize
-//        numberOfMatrixTextField.text = calculationSettings?.numberOfMatrixes
         
         backgroungThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey)
         priorityThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey)
         parallelCalculationSwitch.isOn = DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey)
+    }
+    
+    //MARK: - Update settings
+    private func updateCalculationSettings(){
+        calculationSettings.optimizations = [.noOptimization]
+        //background
+        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
+            calculationSettings.optimizations.append(.background)
+        }
         
-//        matrix?.setMatrixSize(Int(matrixSizeTextField.text ?? ""))
-//        calculationSettings?.matrixSize = Int(matrixSizeTextField.text ?? "") ?? 5
-//        matrix?.setNumberOfMatrixes(Int(numberOfMatrixTextField.text ?? ""))
-//        calculationSettings?.numberOfMatrixes = Int(numberOfMatrixTextField.text ?? "") ?? 3
+        //priority
+        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
+            calculationSettings.optimizations.append(.priority)
+        }
         
+        //parallel
+        if DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey) {
+            calculationSettings.optimizations.append(.parallel)
+        }
     }
 }
 
 // MARK: - MainViewController Extension
 extension MainViewController: RefreshViewProtocol {
     func refreshUI() {
-        
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
         bluredView.alpha = 0
-//        resultsArray = [:]
     }
 }
 
