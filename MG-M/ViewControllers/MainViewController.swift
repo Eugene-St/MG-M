@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         activityIndicator.isHidden = true
+        activityIndicator.hidesWhenStopped = true
         
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
@@ -42,6 +43,8 @@ class MainViewController: UIViewController {
     //MARK: - End calcultion
     func onCalculationEnded(with result: [String:Double]){
         performSegue(withIdentifier: "calculation", sender: result)
+        activityIndicator.stopAnimating()
+        bluredView.alpha = 0
     }
     
     // MARK: - IBActions
@@ -79,7 +82,6 @@ class MainViewController: UIViewController {
         if segue.identifier == "calculation" {
             let destinationVC = segue.destination as! ResultsViewController
             destinationVC.resultsCalculation = sender as? [String : Double]
-            destinationVC.delegate = self
         }
     }
     
@@ -110,16 +112,6 @@ class MainViewController: UIViewController {
         if calculationSettings.parallelOptimization {
             calculationSettings.optimizations.append(.parallel)
         }
-    }
-}
-
-// MARK: - MainViewController Extension
-extension MainViewController: RefreshViewProtocol {
-    func refreshUI() {
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
-        
-        bluredView.alpha = 0
     }
 }
 

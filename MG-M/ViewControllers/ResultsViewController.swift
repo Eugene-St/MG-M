@@ -12,11 +12,9 @@ class ResultsViewController: UIViewController {
     // MARK: - Properties
 //    var calculationTime: Double?
     var resultsCalculation: [String : Double]?
-    var delegate: RefreshViewProtocol?
     
     // MARK: - IBAction
     @IBAction func backButtonPressed() {
-        delegate?.refreshUI()
         dismiss(animated: true)
     }
 }
