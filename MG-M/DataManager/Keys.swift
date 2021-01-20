@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Keys {
+enum Keys: String {
     
-    static let matrixSizeKey = "matrixSizeKey"
-    static let numberOfMatrixKey = "numberOfMatrixKey"
-    static let calculationResultKey = "calculationResultKey"
+    case matrixSizeKey
+    case numberOfMatrixKey
+    case calculationResultKey
     
-    static let backgroundThreadSwitchKey = "backgroundThreadSwitchKey"
-    static let priorityThreadSwitchKey = "priorityThreadSwitchKey"
-    static let parallelCalculationSwitchKey = "parallelCalculationSwitchKey"
+    case backgroundThreadSwitchKey
+    case priorityThreadSwitchKey
+    case parallelCalculationSwitchKey
     
-    static let resultArrayKey = "resultArrayKey"
+    case resultArrayKey
 }

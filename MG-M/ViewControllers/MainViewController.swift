@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
     }
     
     //MARK: - End calcultion
-    func endCalcultion(with result: [String:Double]){
+    func onCalculationEnded(with result: [String:Double]){
         performSegue(withIdentifier: "calculation", sender: result)
     }
     
@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
         
         let calculator = Calculator(settings: calculationSettings) {
             [weak self] resultArray in
-            self?.endCalcultion(with: resultArray)
+            self?.onCalculationEnded(with: resultArray)
         }
         
         calculator.startCalculation()
@@ -61,15 +61,16 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func backgroundSwitchChanged(_ sender: UISwitch) {
-        DataManager.shared.saveData(sender.isOn, key: Keys.backgroundThreadSwitchKey)
+        calculationSettings.backgroundOptimization = sender.isOn
+        
     }
     
     @IBAction func prioritySwitchChanged(_ sender: UISwitch) {
-        DataManager.shared.saveData(sender.isOn, key: Keys.priorityThreadSwitchKey)
+        calculationSettings.priorityOptimization = sender.isOn
     }
     
     @IBAction func parallelSwitchChanged(_ sender: UISwitch) {
-        DataManager.shared.saveData(sender.isOn, key: Keys.parallelCalculationSwitchKey)
+        calculationSettings.parallelOptimization = sender.isOn
     }
     
     // MARK: - Navigation
@@ -86,29 +87,27 @@ class MainViewController: UIViewController {
     //MARK: - UpdateUI
     private func setupUI() {
         
-        matrixSizeTextField.text = String(DataManager.shared.fetchInt(key: Keys.matrixSizeKey))
-        numberOfMatrixTextField.text = String(DataManager.shared.fetchInt(key: Keys.numberOfMatrixKey))
+        matrixSizeTextField.text = String(calculationSettings.matrixSize)
+        numberOfMatrixTextField.text = String(calculationSettings.numberOfMatrixes)
         
-        backgroungThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey)
-        priorityThreadSwitch.isOn = DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey)
-        parallelCalculationSwitch.isOn = DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey)
+        backgroungThreadSwitch.isOn = calculationSettings.backgroundOptimization
+        priorityThreadSwitch.isOn = calculationSettings.priorityOptimization
+        parallelCalculationSwitch.isOn = calculationSettings.parallelOptimization
     }
     
     //MARK: - Update settings
     private func updateCalculationSettings(){
         calculationSettings.optimizations = [.noOptimization]
-        //background
-        if DataManager.shared.fetchBool(key: Keys.backgroundThreadSwitchKey) {
+        
+        if calculationSettings.backgroundOptimization {
             calculationSettings.optimizations.append(.background)
         }
         
-        //priority
-        if DataManager.shared.fetchBool(key: Keys.priorityThreadSwitchKey) {
+        if calculationSettings.priorityOptimization {
             calculationSettings.optimizations.append(.priority)
         }
         
-        //parallel
-        if DataManager.shared.fetchBool(key: Keys.parallelCalculationSwitchKey) {
+        if calculationSettings.parallelOptimization {
             calculationSettings.optimizations.append(.parallel)
         }
     }

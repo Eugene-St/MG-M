@@ -15,10 +15,9 @@ struct Matrix {
     init(matrixSize: Int, type: MatrixType) {
         self.matrixSize = matrixSize
         
-        if type == .zero {
-            values = generateZeroMatrix(matrixSize)
-        } else {
-            values = generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100)
+        switch type {
+        case .zero: values = generateZeroMatrix(matrixSize)
+        case .random: values = generateRandomMatrix(size: matrixSize, minElement: 0, maxElement: 100)
         }
     }
     
@@ -53,7 +52,7 @@ struct Matrix {
     }
     
     ///Return result of multiplying 2 matrixes
-    func multiply(with matrix: Matrix) -> [[Int]] {
+    func multiply(with matrix: Matrix) {
 
         var resultMatrix: [[Int]] = generateZeroMatrix(matrixSize)
         
@@ -64,8 +63,6 @@ struct Matrix {
                 }
             }
         }
-        
-        return resultMatrix
     }
 }
 

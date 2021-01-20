@@ -9,8 +9,8 @@ import Foundation
 
 class Calculator {
     
-    let settings: CalculationSettings
-    let endCalculation: (([String : Double]) -> Void)
+    var settings: CalculationSettings
+    let calculationCompletionHandler: (([String : Double]) -> Void)
     
     var matrixes: [Matrix] = []
     var resultsArray: [String : Double] = [:]
@@ -19,7 +19,7 @@ class Calculator {
     
     init(settings: CalculationSettings, endCalculation: @escaping (([String : Double]) -> Void)) {
         self.settings = settings
-        self.endCalculation = endCalculation
+        self.calculationCompletionHandler = endCalculation
         
         generateMatrixes()
     }
@@ -40,7 +40,7 @@ class Calculator {
                     countTime(for: settings.optimizations[calculationIndex])
                 } else {
                     DispatchQueue.main.async {
-                        self.endCalculation(self.resultsArray)
+                        self.calculationCompletionHandler(self.resultsArray)
                     }
                 }
                 calculationIndex += 1
@@ -86,7 +86,7 @@ class Calculator {
             
             semafor += 1
             DispatchQueue.global(qos: .userInitiated).async {
-                self.matrixes[i].multiply(with: self.matrixes[i+1])
+               self.matrixes[i].multiply(with: self.matrixes[i+1])
                 self.semafor -= 1
             }
         }
