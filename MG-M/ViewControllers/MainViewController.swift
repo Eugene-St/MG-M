@@ -13,7 +13,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var matrixSizeTextField: UITextField!
     @IBOutlet weak var numberOfMatrixTextField: UITextField!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            activityIndicator.hidesWhenStopped = true
+        }
+    }
     
     @IBOutlet weak var backgroungThreadSwitch: UISwitch!
     @IBOutlet weak var priorityThreadSwitch: UISwitch!
@@ -29,7 +33,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         activityIndicator.isHidden = true
-        activityIndicator.hidesWhenStopped = true
         
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
