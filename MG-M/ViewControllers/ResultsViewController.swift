@@ -10,7 +10,6 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     // MARK: - Properties
-//    var calculationTime: Double?
     var resultsCalculation: [String : Double]?
     
     // MARK: - IBAction
@@ -20,7 +19,8 @@ class ResultsViewController: UIViewController {
 }
 
 // MARK: - Table view data source
-extension ResultsViewController: UITableViewDelegate, UITableViewDataSource{
+extension ResultsViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resultsCalculation?.count ?? 1
     }
@@ -34,5 +34,9 @@ extension ResultsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = "\(sortedResults[indexPath.row].key) : \(sortedResults[indexPath.row].value) ms"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

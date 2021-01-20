@@ -32,8 +32,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.isHidden = true
-        
         matrixSizeTextField.delegate = self
         numberOfMatrixTextField.delegate = self
         
@@ -61,7 +59,6 @@ class MainViewController: UIViewController {
         
         calculator.startCalculation()
         
-        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         bluredView.alpha = 0.2
     }
